@@ -12,8 +12,11 @@ int sc_main(int, char**){
   // 3 sorties composants (1 pour chaque)
   // UART / Timer / GPIO
   Toggle_Component UART_COMP("UART_COMP");
+  UART_COMP.Addr = 1;
   Toggle_Component Timer("Timer");
+  Timer.Addr = 2;
   Toggle_Component GPIO("GPIO");
+  GPIO.Addr = 3;
   // N sorties materielles
 
   return 0;

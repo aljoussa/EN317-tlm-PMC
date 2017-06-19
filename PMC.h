@@ -1,4 +1,7 @@
 #include "systemc.h"
+#include "tlm.h"
+#include "tlm_utils/simple_initiator_socket.h"
+#include "tlm_utils/simple_target_socket.h"
 
 #define PMC_SCER     Reg[0]
 #define PMC_SCDR     Reg[1]
@@ -30,10 +33,12 @@
 #define PMC_PCR      Reg[27]
 
 SC_MODULE (Toggle_Component){
+    tlm_utils::simple_initiator_socket<Toggle_Component> socket;
     SC_CTOR(Toggle_Component);
-
+    
+    void thread_process();
     void On();
     void Off();
     bool Activated;
-    sc_out< sc_bit> out_comp;
+    int Addr;
 };

@@ -3,8 +3,8 @@
 
 # Only one variable needed: SYSTEMCROOT, pointing
 # to the systemc install and source tree
-SYSTEMC = /home/greensocs/Projects/systemc-2.3.1/release
-#$(SYSTEMCROOT)
+SYSTEMCROOT = /usr/local
+SYSTEMC = $(SYSTEMCROOT)
 TLM = $(TLMROOT)
 
 # guess target os name used by systemc's configure
@@ -18,7 +18,8 @@ CXXFLAGS = -Wno-deprecated -O0
 
 LD = $(CC)
 LDFLAGS = 
-LDLIBS = -L. -L$(SYSTEMC)/lib-$(ARCH) -Xlinker -Bstatic -lsystemc -Xlinker -Bdynamic -lm -pthread
+#LDLIBS = -L. -L$(SYSTEMC)/lib-$(ARCH) -Xlinker -Bstatic -lsystemc -Xlinker -Bdynamic -lm -pthread
+LDLIBS = -L. -L$(SYSTEMC)/lib -Xlinker -lsystemc -Xlinker -lm
 
 SRCS = $(wildcard *.cpp)
 DEPS = $(SRCS:%.cpp=%.d)

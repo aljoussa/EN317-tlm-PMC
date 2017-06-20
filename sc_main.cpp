@@ -1,20 +1,14 @@
 #include "systemc.h"
-#include "PMC.h"
-#include "register.h"
 
+//#include "top_module.h"
+#include "PMC_module.h"
 
-int sc_main(int, char**){
+//#include "socket.cpp"
 
-  PMC_reg table("Registres");
-  //cout <<  CKGR_MOR << endl;
-
-  // Déclarations I/O
-  // 3 sorties composants (1 pour chaque)
-  // UART / Timer / GPIO
-  Toggle_Component UART_COMP("UART_COMP");
-  Toggle_Component Timer("Timer");
-  Toggle_Component GPIO("GPIO");
-  // N sorties materielles
-
+int sc_main(int argc, char* argv[])
+{
+  //Top top("top");
+  PMC_module PMC_tb("PMC_tb");
+  sc_start();
   return 0;
 }

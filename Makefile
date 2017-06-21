@@ -17,7 +17,7 @@ CPPFLAGS = $(INCLUDES)
 CXXFLAGS = -Wno-deprecated -O0
 
 LD = $(CC)
-LDFLAGS = 
+LDFLAGS =
 #LDLIBS = -L. -L$(SYSTEMC)/lib-$(ARCH) -Xlinker -Bstatic -lsystemc -Xlinker -Bdynamic -lm -pthread
 LDLIBS = -L. -L$(SYSTEMC)/lib -Xlinker -lsystemc -Xlinker -lm
 

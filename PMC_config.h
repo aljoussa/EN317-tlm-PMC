@@ -1,5 +1,5 @@
 /* -------- Macro for check bit status    -------- */
-#define is_bit_en(reg, bit) ((reg & bit) > 0 ? true : false)
+#define is_bit_en(reg, bit) ((reg & bit) > 0 ? 1 : 0)
 #define reg_val(reg, msk, pos) ((reg & msk) >> pos)
 /* -------- Register variable for systemc -------- */
 #define PMC_SCER      0   /* -------- System Clock Enable Register    -------- */
@@ -27,7 +27,7 @@
 #define PMC_WPMR     22   /* -------- Write Protect Mode Register       -------- */
 #define PMC_WPSR     23   /* -------- Write Protect Status Register     -------- */
 #define PMC_PCER1    24   /* -------- Peripheral Clock Enable Register 1 -------- */
-#define PMC_PCSR1    25   /* -------- Peripheral Clock Disable Register 1 -------- */
+#define PMC_PCDR1    25   /* -------- Peripheral Clock Disable Register 1 -------- */
 #define PMC_PCSR1    26   /* -------- Peripheral Clock Status Register 1 -------- */
 #define PMC_PCR      27   /* -------- Write Protect Status Register     -------- */
 

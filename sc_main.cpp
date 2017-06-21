@@ -1,23 +1,26 @@
 #include "systemc.h"
-#include "PMC.h"
+#include "Comp_Tog.h"
 #include "register.h"
 
 
 int sc_main(int, char**){
 
+  // Registres
   PMC_reg table("Registres");
-  //cout <<  CKGR_MOR << endl;
-
-  // Déclarations I/O
-  // 3 sorties composants (1 pour chaque)
-  // UART / Timer / GPIO
-  Toggle_Component UART_COMP("UART_COMP");
+  
+  // I/O
+    // 3 sorties composants (1 pour chaque)
+  Toggle_Component UART_COMP("UART_COMP_socket");
   UART_COMP.Addr = 1;
-  Toggle_Component Timer("Timer");
+  Toggle_Component Timer("Timer_socket");
   Timer.Addr = 1;
-  Toggle_Component GPIO("GPIO");
+  Toggle_Component GPIO("GPIO_socket");
   GPIO.Addr = 1;
-  // N sorties materielles
 
+    // 1 entrée bus
+  PMC_bus = new PMC_bus_target_socket("Bus_socket");
+
+
+  
   return 0;
 }

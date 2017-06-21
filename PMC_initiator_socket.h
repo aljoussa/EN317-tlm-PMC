@@ -57,7 +57,7 @@ struct PMC_initiator_socket: sc_module
 
       // Realize the delay annotated onto the transport call
       wait(delay);
-    }
+   // }
   }
 
   // Internal data buffer used by initiator with generic payload

@@ -12,7 +12,7 @@ class PMC_register {
   void reset();
 
   uint32_t reg(int idx);
-private:
+//private:
   uint32_t regv[28];
 };
 

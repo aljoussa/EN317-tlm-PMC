@@ -1,4 +1,4 @@
-#include "PMC.h"
+#include "Comp_Tog.h"
 
 Toggle_Component::Toggle_Component(sc_module_name name) : socket("socket")
 {

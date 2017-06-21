@@ -8,6 +8,7 @@ using namespace std;
 #include "tlm.h"
 #include "tlm_utils/simple_initiator_socket.h"
 
+#include "PMC_register.h"
 // Initiator module generating generic payload transactions
 
 struct PMC_tb_socket: sc_module
@@ -19,6 +20,7 @@ struct PMC_tb_socket: sc_module
   SC_CTOR(PMC_tb_socket)
   : socket("bus_socket")  // Construct and name socket
   {
+    data.reset();
     SC_THREAD(thread_process);
   }
 
@@ -29,16 +31,17 @@ struct PMC_tb_socket: sc_module
     sc_time delay = sc_time(10, SC_NS);
 
     // Generate a random sequence of reads and writes
-    for (int i = 32; i < 96; i += 4)
+    //for (int i = 32; i < 96; i += 4)
+    for (int i = 0; i < 28; i += 1)
     {
 
-      tlm::tlm_command cmd = static_cast<tlm::tlm_command>(rand() % 2);
-      if (cmd == tlm::TLM_WRITE_COMMAND) data = 0xFF000000 | i;
+      tlm::tlm_command cmd = static_cast<tlm::tlm_command>(1);
+      //if (cmd == tlm::TLM_WRITE_COMMAND) data = 0xFF000000 | i;
 
       // Initialize 8 out of the 10 attributes, byte_enable_length and extensions being unused
       trans->set_command( cmd );
       trans->set_address( i );
-      trans->set_data_ptr( reinterpret_cast<unsigned char*>(&data) );
+      trans->set_data_ptr( reinterpret_cast<unsigned char*>(&data.regv[i]));
       trans->set_data_length( 4 );
       trans->set_streaming_width( 4 ); // = data_length to indicate no streaming
       trans->set_byte_enable_ptr( 0 ); // 0 indicates unused
@@ -52,7 +55,7 @@ struct PMC_tb_socket: sc_module
         SC_REPORT_ERROR("TLM-2", "Response error from b_transport");
 
       cout << "trans = { " << (cmd ? 'W' : 'R') << ", " << hex << i
-           << " } , data = " << hex << data << " at time " << sc_time_stamp()
+           << " } , data = " << hex << data.regv[i] << " at time " << sc_time_stamp()
            << " delay = " << delay << endl;
 
       // Realize the delay annotated onto the transport call
@@ -61,5 +64,5 @@ struct PMC_tb_socket: sc_module
   }
 
   // Internal data buffer used by initiator with generic payload
-  int data;
+  PMC_register data;
 };

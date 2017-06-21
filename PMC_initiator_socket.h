@@ -29,7 +29,7 @@ struct PMC_initiator_socket: sc_module
     sc_time delay = sc_time(10, SC_NS);
 
     // Generate a random sequence of reads and writes
-    for (int i = 32; i < 96; i += 4)
+   /* for (int i = 32; i < 96; i += 4)
     {
       if(data == 0){
         data = 1;
@@ -37,7 +37,7 @@ struct PMC_initiator_socket: sc_module
         data = 0;
       }
 
-      cout << "data send = " << hex << data << endl;
+      cout << "data send = " << hex << data << endl;*/
       // Initialize 8 out of the 10 attributes, byte_enable_length and extensions being unused
       trans->set_command( tlm::TLM_WRITE_COMMAND );
       trans->set_address( 1 );

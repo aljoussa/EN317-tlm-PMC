@@ -19,6 +19,9 @@ SC_MODULE (PMC_module){
     PMC_tb      = new PMC_tb_socket("initiator"); // Testbench seulement
     PMC_target  = new PMC_bus_target_socket("memory");
 
+  //  PMC_target.mem[PMC_SCER]; // 0xFE4001 // 32 bit
+    //is_bit_en(PMC_target.mem[PMC_SCER], PMC_SCER_PCK0)
+
     // *** liaison des sockets
     PMC_tb->socket.bind( PMC_target->socket ); // Testbench seulement
   }

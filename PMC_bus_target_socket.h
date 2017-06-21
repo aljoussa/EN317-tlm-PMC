@@ -8,12 +8,14 @@ using namespace std;
 #include "tlm.h"
 #include "tlm_utils/simple_target_socket.h"
 
+#include "PMC_register.h"
+
 struct PMC_bus_target_socket: sc_module
 {
   // TLM-2 socket, defaults to 32-bits wide, base protocol
   tlm_utils::simple_target_socket<PMC_bus_target_socket> socket;
 
-  enum { SIZE = 256 };
+  enum { SIZE = 28 };
 
   SC_CTOR(PMC_bus_target_socket)
   : socket("bus_socket")
@@ -23,7 +25,7 @@ struct PMC_bus_target_socket: sc_module
 
     // Initialize memory with random data
     for (int i = 0; i < SIZE; i++)
-      mem[i] = 0xAA000000 | (rand() % 256);
+      mem.regv[i] = 0xAA000000 | (rand() % 256);
   }
 
   // TLM-2 blocking transport method
@@ -46,13 +48,14 @@ struct PMC_bus_target_socket: sc_module
 
     // Obliged to implement read and write commands
     if ( cmd == tlm::TLM_READ_COMMAND )
-      memcpy(ptr, &mem[adr], len);
+      memcpy(ptr, &mem.regv[adr], len);
     else if ( cmd == tlm::TLM_WRITE_COMMAND )
-      memcpy(&mem[adr], ptr, len);
+      memcpy(&mem.regv[adr], ptr, len);
 
     // Obliged to set response status to indicate successful completion
     trans.set_response_status( tlm::TLM_OK_RESPONSE );
   }
 
-  int mem[SIZE];
+  PMC_register mem;
+  //int mem[SIZE];
 };

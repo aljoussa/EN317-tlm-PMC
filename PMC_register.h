@@ -5,14 +5,13 @@
 #define PMC_REGISTER_H
 
 class PMC_register {
-
+public:
   PMC_register();
   ~PMC_register();
 
   void reset();
 
   uint32_t reg(int idx);
-private:
   uint32_t regv[28];
 };
 
